@@ -11,8 +11,8 @@ namespace ProyectoPeliculas
             Catalogo catalogo = new Catalogo();
             catalogo.AddMovie();
             catalogo.AddMovie();
-            IEnumerable<IMovie> a = catalogo.SearchMovieForName();
-            catalogo.ShowMoviesForParameter(a);
+            IEnumerable<IMovie> query = catalogo.SearchMovieForName();
+            catalogo.ShowMoviesForParameter(query);
         }
     }
 }
