@@ -7,6 +7,8 @@ namespace ProyectoPeliculas
 {
     class Catalogo
     {
+        string[] yesNo = new string[4] { "yes", "no", "y", "n" };
+
         static string[] showData = new string[7]
         {
             "\n Escriba el titulo de la peli: ",
@@ -18,16 +20,110 @@ namespace ProyectoPeliculas
             "\n ¿Cuál es el genero de la pelicula?: "
         };
 
+        static string[] overrideData = new string[7]
+        {
+            "\n el Titulo ({1}): ",
+            "\n la Duración ({1}): ",
+            "\n el Año salida ({1}): ",
+            "\n el Idioma ({1}): ",
+            "\n la Casa Productora ({1}): ",
+            "\n el Director ({1}): ",
+            "\n el Genero ({1}): ",
+        };
+
         static string[] temporalData = new string[7];
         static List<IMovie> peliculas = new List<IMovie>();
 
+        public void Menu()
+        {
+            Console.WriteLine("\n**********************************");
+            Console.WriteLine("***** Catálogo de Películas ******");
+            Console.WriteLine("----------------------------------");
+            Console.WriteLine("Lista de Opciones");
+            Console.WriteLine("----------------------------------");
+            Console.WriteLine("1. Agregar  nueva película");
+            Console.WriteLine("2. Listar todas las películas");
+            Console.WriteLine("3. Buscar película por nombre");
+            Console.WriteLine("4. Listar películas por director");
+            Console.WriteLine("5. Listar películas por género");
+            Console.WriteLine("0. Salir del Programa");
+        }
+
+        public void OverridePelicula( int QIndex )
+        {
+            //for (int i = 0; i <= 6; i++)
+            //{
+            //    Console.WriteLine("¿Quiere sobrescribir {0}: ", overrideData[i], peliculas[QIndex].(s.Titulo));
+            //}
+
+            //var a = s.Titulo;
+
+            Console.Clear();
+            Console.Write("\n¿Quiere sobrescribir Titulo ({0}): ", peliculas[QIndex].Titulo);
+            peliculas[QIndex].Titulo = Console.ReadLine();
+
+            Console.Clear();
+            Console.Write("¿Quiere sobrescribir Duracion ({0}): ", peliculas[QIndex].Duracion);
+            peliculas[QIndex].Duracion = Console.ReadLine();
+
+            Console.Clear();
+            Console.Write("¿Quiere sobrescribir Año ({0}): ", peliculas[QIndex].Age);
+            peliculas[QIndex].Age = Console.ReadLine();
+
+            Console.Clear();
+            Console.Write("¿Quiere sobrescribir Idioma ({0}): ", peliculas[QIndex].Idioma);
+            peliculas[QIndex].Idioma = Console.ReadLine();
+
+            Console.Clear();
+            Console.Write("¿Quiere sobrescribir CasaProductora ({0}): ", peliculas[QIndex].CasaProductora);
+            peliculas[QIndex].CasaProductora = Console.ReadLine();
+
+            Console.Clear();
+            Console.Write("¿Quiere sobrescribir Director ({0}): ", peliculas[QIndex].Director);
+            peliculas[QIndex].Director = Console.ReadLine();
+
+            Console.Clear();
+            Console.Write("¿Quiere sobrescribir Genero ({0}): ", peliculas[QIndex].Genero);
+            peliculas[QIndex].Genero = Console.ReadLine();
+
+        }
+
+        public void Controller()
+        {
+
+        }
+
         public void AddMovie()
         {
+            string temporalTitle;
+            IEnumerable<IMovie> query;
+            int queryIndex;
+
             for ( int i = 0; i <= 6; i++ )
             {
                 Console.Write(showData[i]);
-                temporalData[i] = Console.ReadLine();
 
+                //if ( peliculas.Count() >= 1 )
+                //{
+                //    temporalTitle = Console.ReadLine();
+
+                //    query = from pelicula in peliculas
+                //            where pelicula.Titulo.Trim().ToLower() == temporalTitle.ToLower()
+                //            select pelicula;
+
+                //    queryIndex = peliculas.FindIndex(pelicula => pelicula.Titulo.Trim().ToLower() == temporalTitle.ToLower());
+                //    Console.Write(queryIndex);
+
+                //    if (query.Count() == 1)
+                //    {
+                //        Console.Write("\nHay coincidencias esta seguro que quiere sobreescribir la pelicula:\n");
+                //        //OverridePelicula( queryIndex );
+                //    }
+
+                //    continue;
+                //}
+
+                temporalData[i] = Console.ReadLine();
                 Console.Clear();
             }
 
@@ -44,21 +140,7 @@ namespace ProyectoPeliculas
 
         public void AllMovies()
         {
-            for (int i = 0; i <= peliculas.Count - 1; i++)
-            {
-                Console.WriteLine($"\nTitulo: {peliculas[i].Titulo}");
-                Console.WriteLine($"Duración: {peliculas[i].Duracion}");
-                Console.WriteLine($"Año salida: {peliculas[i].Age}");
-                Console.WriteLine($"Idioma: {peliculas[i].Idioma}");
-                Console.WriteLine($"Genero: {peliculas[i].Genero}");
-                Console.WriteLine($"Casa Productora: {peliculas[i].CasaProductora}");
-                Console.WriteLine($"Director: {peliculas[i].Director}");
-            }
-        }
-
-        public void ShowMoviesForParameter( IEnumerable<IMovie> query )
-        {
-            foreach( IMovie pelicula in query )
+            foreach( IMovie pelicula in peliculas )
             {
                 Console.WriteLine($"\nTitulo: {pelicula.Titulo}");
                 Console.WriteLine($"Duración: {pelicula.Duracion}");
@@ -70,15 +152,58 @@ namespace ProyectoPeliculas
             }
         }
 
+        public void ShowMoviesForParameter( IEnumerable<IMovie> query )
+        {
+            foreach( IMovie pelicula in query )
+            {
+                Console.WriteLine($"\n Titulo: {pelicula.Titulo}");
+                Console.WriteLine($" Duración: {pelicula.Duracion}");
+                Console.WriteLine($" Año salida: {pelicula.Age}");
+                Console.WriteLine($" Idioma: {pelicula.Idioma}");
+                Console.WriteLine($" Genero: {pelicula.Genero}");
+                Console.WriteLine($" Casa Productora: {pelicula.CasaProductora}");
+                Console.WriteLine($" Director: {pelicula.Director}");
+            }
+        }
+
         public IEnumerable<IMovie> SearchMovieForName()
         {
 
             Console.Write("\n Escriba el nombre de la pelicula que desea buscar: ");
             string name = Console.ReadLine();
 
+            return QueryMovie(name);
+        }
+
+        public IEnumerable<IMovie> SearchMovieForGener()
+        {
+
+            Console.Write("\n Escriba el genero de pelicula que desea buscar: ");
+            string gener = Console.ReadLine();
+
+            return QueryMovie(gener, "Genero");
+        }
+
+        public IEnumerable<IMovie> SearchMovieForDirector()
+        {
+            Console.Write("\n Escriba el director de la pelicula que desea buscar: ");
+            string director = Console.ReadLine();
+
+            return QueryMovie(director, "Director");
+        }
+
+        public IEnumerable<IMovie> QueryMovie( string q, string parameterQuery = "" )
+        {
+
             var query = from pelicula in peliculas
-                    where pelicula.Titulo.Trim().ToLower() == name.ToLower()
-                    select pelicula;
+                        where (
+                            parameterQuery == "Director" 
+                            ? pelicula.Director.Trim().ToLower() 
+                            : parameterQuery == "Genero" 
+                            ? pelicula.Genero.Trim().ToLower() 
+                            : pelicula.Titulo.Trim().ToLower()) 
+                            == q.ToLower()
+                        select pelicula;
 
             return query;
         }

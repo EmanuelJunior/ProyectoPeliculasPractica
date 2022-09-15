@@ -11,8 +11,14 @@ namespace ProyectoPeliculas
             Catalogo catalogo = new Catalogo();
             catalogo.AddMovie();
             catalogo.AddMovie();
-            IEnumerable<IMovie> query = catalogo.SearchMovieForName();
-            catalogo.ShowMoviesForParameter(query);
+
+            catalogo.ShowMoviesForParameter( catalogo.SearchMovieForGener() );
+            //IEnumerable<IMovie> query = catalogo.SearchMovieForName();
+            //catalogo.ShowMoviesForParameter(query);
+
+            //String n = "Emanuel Garces Zuluaga";
+            //var search = n.Trim().ToLower().StartsWith("emanuel");
+            //Console.WriteLine(search);
         }
     }
 }
