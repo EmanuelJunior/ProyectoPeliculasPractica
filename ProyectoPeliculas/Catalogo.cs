@@ -21,6 +21,7 @@ namespace ProyectoPeliculas
 
             Console.Clear();
             Console.Write("\n ¿Quiere sobrescribir Titulo ({0}): ", peliculas[QIndex].Titulo);
+            Console.Write(peliculas[QIndex].Titulo.Length);
             peliculas[QIndex].Titulo = Console.ReadLine();
 
             Console.Clear();
@@ -92,7 +93,7 @@ namespace ProyectoPeliculas
         {
             string temporalTitle;
             IEnumerable<IMovie> query;
-            int queryIndex;
+            int queryIndex = -1;
 
             for ( int i = 0; i <= 6; i++ )
             {
@@ -103,9 +104,7 @@ namespace ProyectoPeliculas
                 {
                     temporalTitle = Console.ReadLine();
 
-                    query = from pelicula in peliculas
-                            where pelicula.Titulo.Trim().ToLower() == temporalTitle.ToLower()
-                            select pelicula;
+                    query = QueryMovie(temporalTitle);
 
                     queryIndex = peliculas.FindIndex(pelicula => pelicula.Titulo.Trim().ToLower() == temporalTitle.ToLower());
 
@@ -121,15 +120,16 @@ namespace ProyectoPeliculas
                 temporalData[i] = Console.ReadLine();
             }
 
-            peliculas.Add(new IMovie {
-                Titulo = temporalData[0],
-                Duracion = temporalData[1],
-                Age = temporalData[2],
-                Idioma = temporalData[3],
-                CasaProductora = temporalData[4],
-                Director = temporalData[5],
-                Genero = temporalData[6]
-            });
+            if ( queryIndex == -1 ) 
+                peliculas.Add(new IMovie {
+                    Titulo = temporalData[0],
+                    Duracion = temporalData[1],
+                    Age = temporalData[2],
+                    Idioma = temporalData[3],
+                    CasaProductora = temporalData[4],
+                    Director = temporalData[5],
+                    Genero = temporalData[6]
+                });
 
             Console.Write("\n Presiona cualquier letra para continuar... ");
             Console.ReadKey();
@@ -202,8 +202,8 @@ namespace ProyectoPeliculas
                             parameterQuery == "Director" 
                             ? pelicula.Director.Trim().ToLower() 
                             : parameterQuery == "Genero" 
-                            ? pelicula.Genero.Trim().ToLower() 
-                            : pelicula.Titulo.Trim().ToLower()) 
+                                ? pelicula.Genero.Trim().ToLower() 
+                                : pelicula.Titulo.Trim().ToLower()) 
                             == q.ToLower()
                         select pelicula;
 
