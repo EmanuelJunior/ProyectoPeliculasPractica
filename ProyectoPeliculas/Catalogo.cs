@@ -12,12 +12,6 @@ namespace ProyectoPeliculas
 
         public void OverridePelicula( int QIndex )
         {
-            //for (int i = 0; i <= 6; i++)
-            //{
-            //    Console.WriteLine("¿Quiere sobrescribir {0}: ", overrideData[i], peliculas[QIndex].(s.Titulo));
-            //}
-
-            //var a = s.Titulo;
 
             Console.Clear();
             Console.Write("\n ¿Quiere sobrescribir Titulo ({0}): ", peliculas[QIndex].Titulo);
@@ -52,6 +46,7 @@ namespace ProyectoPeliculas
 
         public void Controller()
         {
+            int option;
             bool trueOrFalse = true;
 
             while( trueOrFalse )
@@ -59,7 +54,16 @@ namespace ProyectoPeliculas
                 Console.Clear();
                 Console.WriteLine(UI.Menu);
                 Console.Write("\n Eliga una opción: ");
-                int option = int.Parse(Console.ReadLine());
+
+                try { option = int.Parse(Console.ReadLine()); }
+                catch (Exception e) {
+                    Console.Clear();
+                    Console.WriteLine($"\n Se ha generado un error de tipo: {e.GetType()}, \n El mensaje de error es: {e.Message}");
+                    Console.Write("\n Presiona cualquier letra para continuar... ");
+                    Console.ReadKey();
+                    continue; 
+                }
+
                 Console.Clear();
 
                 switch (option)
@@ -154,6 +158,8 @@ namespace ProyectoPeliculas
 
         public void ShowMoviesForParameter( IEnumerable<IMovie> query )
         {
+            if (query.Count() == 0) Console.WriteLine("\n====== no se ha logrado resolver la busqueda ======".ToUpper());
+
             foreach( IMovie pelicula in query )
             {
                 Console.WriteLine($"\n Titulo: {pelicula.Titulo}");

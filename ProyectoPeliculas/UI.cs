@@ -11,9 +11,9 @@ namespace ProyectoPeliculas
         public static string Menu =
             "\n **********************************\n" +
             " ***** Catálogo de Películas ******\n" +
-            " ----------------------------------\n" +
+            " =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" +
             " Lista de Opciones\n" +
-            " ----------------------------------\n" +
+            " =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" +
             " 1. Agregar  nueva película\n" +
             " 2. Listar todas las películas\n" +
             " 3. Buscar película por nombre\n" +
