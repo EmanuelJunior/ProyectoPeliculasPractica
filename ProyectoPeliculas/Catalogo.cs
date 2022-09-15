@@ -104,7 +104,7 @@ namespace ProyectoPeliculas
                 Console.Clear();
                 Console.Write(UI.ShowData[i]);
 
-                if (peliculas.Count() >= 1)
+                if (peliculas.Count() > 1)
                 {
                     temporalTitle = Console.ReadLine();
 
@@ -116,6 +116,7 @@ namespace ProyectoPeliculas
                     {
                         Console.Write("\nHay coincidencias esta seguro que quiere sobreescribir la pelicula:\n");
                         OverridePelicula(queryIndex);
+
                     }
 
                     break;
